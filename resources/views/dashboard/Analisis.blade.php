@@ -197,31 +197,78 @@
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
         <div class="cluster-card cluster-unggul">
             <div class="cluster-icon"><i class="fas fa-crown"></i></div>
-            <div class="cluster-name">Klaster Unggul</div>
+            <div class="cluster-name">Klaster 1 — Unggul</div>
             <div class="cluster-count">{{ $clusterUnggul }} Desa</div>
             <div class="cluster-desc">Skor IDM ≥ 0.8<br>Status MANDIRI</div>
             <div class="cluster-rekom">🏆 Pertahankan prestasi</div>
         </div>
         <div class="cluster-card cluster-potensial">
             <div class="cluster-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="cluster-name">Klaster Potensial</div>
+            <div class="cluster-name">Klaster 2 — Potensial</div>
             <div class="cluster-count">{{ $clusterPotensial }} Desa</div>
             <div class="cluster-desc">Skor IDM 0.7 - 0.8<br>Status MAJU</div>
             <div class="cluster-rekom">📈 Dorong ke mandiri</div>
         </div>
         <div class="cluster-card cluster-berkembang">
             <div class="cluster-icon"><i class="fas fa-seedling"></i></div>
-            <div class="cluster-name">Klaster Berkembang</div>
+            <div class="cluster-name">Klaster 3 — Berkembang</div>
             <div class="cluster-count">{{ $clusterBerkembang }} Desa</div>
             <div class="cluster-desc">Skor IDM 0.6 - 0.7<br>Status BERKEMBANG</div>
             <div class="cluster-rekom">🌱 Perkuat program</div>
         </div>
         <div class="cluster-card cluster-prioritas">
             <div class="cluster-icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <div class="cluster-name">Klaster Prioritas</div>
+            <div class="cluster-name">Klaster 4 — Prioritas</div>
             <div class="cluster-count">{{ $clusterPrioritas }} Desa</div>
             <div class="cluster-desc">Skor IDM < 0.6<br>Status TERTINGGAL</div>
             <div class="cluster-rekom">⚠️ Intervensi khusus</div>
+        </div>
+    </div>
+
+    <!-- Hasil anggota tiap klaster -->
+    <div class="card" style="margin-top: 24px;">
+        <div class="card-title">
+            <i class="fas fa-list"></i> Hasil Pengelompokan Desa
+        </div>
+        <p style="font-size: 0.75rem; color: #5b6e8c; margin-bottom: 16px;">
+            Setiap desa ditempatkan pada klaster berdasarkan kemiripan nilai IKS, IKE, IKL, dan IDM.
+        </p>
+
+        <div style="overflow-x: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Klaster</th>
+                        <th>Anggota Desa</th>
+                        <th>Skor IDM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse(($clusterResults ?? []) as $cluster)
+                        @forelse($cluster['members'] as $member)
+                            <tr>
+                                @if($loop->first)
+                                    <td rowspan="{{ $cluster['count'] }}">
+                                        <strong>Klaster {{ $cluster['number'] }}</strong><br>
+                                        <span style="font-size: .75rem; color: #5b6e8c;">{{ $cluster['label'] }} ({{ $cluster['count'] }} desa)</span>
+                                    </td>
+                                @endif
+                                <td>{{ $member['nama_desa'] ?? '-' }}</td>
+                                <td>{{ number_format((float) ($member['skor_komposit'] ?? 0), 3) }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><strong>Klaster {{ $cluster['number'] }}</strong><br><span style="font-size: .75rem; color: #5b6e8c;">{{ $cluster['label'] }}</span></td>
+                                <td colspan="2" style="color: #6c7a91;">Belum ada desa dalam klaster ini.</td>
+                            </tr>
+                        @endforelse
+                    @empty
+                        <tr>
+                            <td colspan="3" style="text-align: center; color: #6c7a91;">Belum ada data terverifikasi untuk dikelompokkan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
     

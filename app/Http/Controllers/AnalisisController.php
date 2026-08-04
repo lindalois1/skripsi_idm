@@ -91,6 +91,7 @@ class AnalisisController extends Controller
                 'clusterPotensialMax' => 0,
                 'clusterBerkembangMax' => 0,
                 'clusterPrioritasMax' => 0,
+                'clusterResults' => [],
                 // Centroid data
                 'centroidUnggulIks' => 0,
                 'centroidUnggulIke' => 0,
@@ -144,12 +145,17 @@ class AnalisisController extends Controller
         $clusterLabels = ['Unggul', 'Potensial', 'Berkembang', 'Prioritas'];
         $clusterData = [];
         foreach ($clusters as $index => $cluster) {
-            $clusterData[$clusterLabels[$index] ?? 'Klaster '.($index + 1)] = [
+            $label = $clusterLabels[$index] ?? 'Klaster '.($index + 1);
+            $clusterData[$label] = [
+                'number' => $index + 1,
+                'label' => $label,
                 'count' => count($cluster['members']),
                 'centroid' => $cluster['centroid'],
                 'members' => $cluster['members'],
             ];
         }
+
+        $clusterResults = array_values($clusterData);
 
         $clusterUnggul = $clusterData['Unggul']['count'] ?? 0;
         $clusterPotensial = $clusterData['Potensial']['count'] ?? 0;
@@ -202,6 +208,7 @@ class AnalisisController extends Controller
             'clusterUnggulRata', 'clusterPotensialRata', 'clusterBerkembangRata', 'clusterPrioritasRata',
             'clusterUnggulMin', 'clusterPotensialMin', 'clusterBerkembangMin', 'clusterPrioritasMin',
             'clusterUnggulMax', 'clusterPotensialMax', 'clusterBerkembangMax', 'clusterPrioritasMax',
+            'clusterResults',
             'centroidUnggulIks', 'centroidUnggulIke', 'centroidUnggulIkl', 'centroidUnggulIdm', 'centroidUnggulJarak',
             'centroidPotensialIks', 'centroidPotensialIke', 'centroidPotensialIkl', 'centroidPotensialIdm', 'centroidPotensialJarak',
             'centroidBerkembangIks', 'centroidBerkembangIke', 'centroidBerkembangIkl', 'centroidBerkembangIdm', 'centroidBerkembangJarak',
