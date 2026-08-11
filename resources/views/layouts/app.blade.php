@@ -24,7 +24,7 @@
         /* ========== SIDEBAR - BIRU CERAH MODERN ========== */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+            background: linear-gradient(180deg, #12336f 0%, #2459c7 100%);
             position: fixed;
             left: 0;
             top: 0;
@@ -41,21 +41,21 @@
             width: 5px;
         }
         .sidebar::-webkit-scrollbar-track {
-            background: #3b82f6;
+            background: #2459c7;
         }
         .sidebar::-webkit-scrollbar-thumb {
-            background: #1e40af;
+            background: #12336f;
             border-radius: 10px;
         }
 
         .sidebar-header {
             padding: 24px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-bottom: 1px solid #bfdbfe;
+            background: linear-gradient(135deg, #f8fbff 0%, #d9e8ff 100%);
         }
 
         .sidebar-header h2 {
-            color: white;
+            color: #12336f;
             font-size: 1.3rem;
             font-weight: 700;
             letter-spacing: -0.5px;
@@ -63,7 +63,7 @@
         }
 
         .sidebar-header p {
-            color: #bfdbfe;
+            color: #456da1;
             font-size: 0.65rem;
             margin-top: 6px;
             line-height: 1.3;
@@ -75,8 +75,11 @@
             justify-content: center;
         }
 
-        .logo-container i {
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        .kabupaten-logo {
+            width: 42px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(18,51,111,0.25));
         }
 
         .nav-menu {
@@ -89,7 +92,7 @@
             align-items: center;
             gap: 12px;
             padding: 12px 18px;
-            color: #e0e7ff;
+            color: #eff6ff;
             text-decoration: none;
             border-radius: 12px;
             margin-bottom: 6px;
@@ -104,13 +107,13 @@
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(191, 219, 254, 0.20);
             color: white;
             transform: translateX(4px);
         }
 
         .nav-item.active {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(191, 219, 254, 0.35);
             color: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(4px);
@@ -146,7 +149,7 @@
         }
 
         .user-role {
-            color: #bfdbfe;
+            color: #dbeafe;
             font-size: 0.65rem;
         }
 
@@ -160,6 +163,16 @@
             margin-left: 280px;
             padding: 28px 32px;
             min-height: 100vh;
+        }
+
+        .app-footer {
+            margin-left: 280px;
+            padding: 18px 32px;
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.75rem;
+            text-align: center;
         }
 
         /* ========== TOP BAR ========== */
@@ -571,6 +584,7 @@
             .sidebar { width: 80px; }
             .sidebar-header h2 span, .sidebar-header p, .nav-item span, .user-info-sidebar .user-name, .user-info-sidebar .user-role { display: none; }
             .main-content { margin-left: 80px; padding: 20px; }
+            .app-footer { margin-left: 80px; padding: 16px 20px; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .grid-3 { grid-template-columns: 1fr; }
             .two-columns { grid-template-columns: 1fr; }
@@ -594,7 +608,7 @@
     <div class="sidebar-header">
         <div style="display: flex; align-items: center; gap: 12px;">
             <div class="logo-container">
-                <i class="fas fa-landmark" style="font-size: 2rem; color: white;"></i>
+                <img class="kabupaten-logo" src="{{ asset('images/lambang-kabupaten-indramayu.png') }}" alt="Lambang Kabupaten Indramayu">
             </div>
             <div>
                 <h2>IDM <span>Digital</span></h2>
@@ -717,6 +731,10 @@
 <div class="main-content">
     @yield('content')
 </div>
+
+<footer class="app-footer">
+    &copy; {{ date('Y') }} POLINDRA — Politeknik Negeri Indramayu. Hak Cipta Dilindungi.
+</footer>
 
 @auth
 <div class="notification-widget">

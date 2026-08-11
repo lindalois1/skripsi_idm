@@ -79,7 +79,7 @@
         }
 
         .login-header {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
             padding: 22px 20px;
             text-align: center;
             position: relative;
@@ -103,19 +103,21 @@
             gap: 8px;
         }
 
-        .logo-wrapper i {
-            font-size: 1.8rem;
-            color: white;
+        .logo-wrapper .kabupaten-logo {
+            width: 42px;
+            height: 46px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
         }
 
         .login-header h2 {
-            color: white;
+            color: #0f2c6b;
             font-size: 1.3rem;
             font-weight: 700;
         }
 
         .login-header p {
-            color: #bfdbfe;
+            color: #3b5f94;
             font-size: 0.6rem;
             margin-top: 4px;
         }
@@ -501,7 +503,7 @@
 <div class="login-container">
     <div class="login-header">
         <div class="logo-wrapper">
-            <i class="fas fa-landmark"></i>
+            <img class="kabupaten-logo" src="{{ asset('images/lambang-kabupaten-indramayu.png') }}" alt="Lambang Kabupaten Indramayu">
             <h2>IDM Digital</h2>
         </div>
         <p>Satu Data Desa Untuk Pembangunan Berkelanjutan</p>
