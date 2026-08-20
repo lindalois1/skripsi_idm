@@ -73,7 +73,7 @@ class ClusteringProcessTest extends TestCase
         ]);
 
         DataIDM::create([
-            'nama_desa' => 'Desa Prioritas',
+            'nama_desa' => 'Desa Rendah',
             'skor_iks' => 0.45,
             'skor_ike' => 0.47,
             'skor_ikl' => 0.44,
@@ -109,8 +109,8 @@ class ClusteringProcessTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('data_idm_desa', [
-            'nama_desa' => 'Desa Prioritas',
-            'cluster' => 'Prioritas',
+            'nama_desa' => 'Desa Rendah',
+            'cluster' => 'Berkembang',
         ]);
     }
 }

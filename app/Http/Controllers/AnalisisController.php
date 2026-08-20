@@ -78,19 +78,15 @@ class AnalisisController extends Controller
                 'clusterUnggul' => 0,
                 'clusterPotensial' => 0,
                 'clusterBerkembang' => 0,
-                'clusterPrioritas' => 0,
                 'clusterUnggulRata' => 0,
                 'clusterPotensialRata' => 0,
                 'clusterBerkembangRata' => 0,
-                'clusterPrioritasRata' => 0,
                 'clusterUnggulMin' => 0,
                 'clusterPotensialMin' => 0,
                 'clusterBerkembangMin' => 0,
-                'clusterPrioritasMin' => 0,
                 'clusterUnggulMax' => 0,
                 'clusterPotensialMax' => 0,
                 'clusterBerkembangMax' => 0,
-                'clusterPrioritasMax' => 0,
                 'clusterResults' => [],
                 // Centroid data
                 'centroidUnggulIks' => 0,
@@ -108,11 +104,6 @@ class AnalisisController extends Controller
                 'centroidBerkembangIkl' => 0,
                 'centroidBerkembangIdm' => 0,
                 'centroidBerkembangJarak' => 0,
-                'centroidPrioritasIks' => 0,
-                'centroidPrioritasIke' => 0,
-                'centroidPrioritasIkl' => 0,
-                'centroidPrioritasIdm' => 0,
-                'centroidPrioritasJarak' => 0,
                 'tahunAnalisis' => $tahun,
                 'tahunList' => $tahunList,
                 'trenTahunan' => $trenTahunan,
@@ -140,9 +131,9 @@ class AnalisisController extends Controller
             ];
         })->all();
 
-        $clusters = $clusteringService->cluster($records, 4);
+        $clusters = $clusteringService->cluster($records, 3);
 
-        $clusterLabels = ['Unggul', 'Potensial', 'Berkembang', 'Prioritas'];
+        $clusterLabels = ['Unggul', 'Potensial', 'Berkembang'];
         $clusterData = [];
         foreach ($clusters as $index => $cluster) {
             $label = $clusterLabels[$index] ?? 'Klaster '.($index + 1);
@@ -160,22 +151,18 @@ class AnalisisController extends Controller
         $clusterUnggul = $clusterData['Unggul']['count'] ?? 0;
         $clusterPotensial = $clusterData['Potensial']['count'] ?? 0;
         $clusterBerkembang = $clusterData['Berkembang']['count'] ?? 0;
-        $clusterPrioritas = $clusterData['Prioritas']['count'] ?? 0;
 
         $clusterUnggulRata = $clusterData['Unggul']['centroid']['idm'] ?? 0;
         $clusterPotensialRata = $clusterData['Potensial']['centroid']['idm'] ?? 0;
         $clusterBerkembangRata = $clusterData['Berkembang']['centroid']['idm'] ?? 0;
-        $clusterPrioritasRata = $clusterData['Prioritas']['centroid']['idm'] ?? 0;
 
         $clusterUnggulMin = collect($clusterData['Unggul']['members'] ?? [])->min('skor_komposit') ?? 0;
         $clusterPotensialMin = collect($clusterData['Potensial']['members'] ?? [])->min('skor_komposit') ?? 0;
         $clusterBerkembangMin = collect($clusterData['Berkembang']['members'] ?? [])->min('skor_komposit') ?? 0;
-        $clusterPrioritasMin = collect($clusterData['Prioritas']['members'] ?? [])->min('skor_komposit') ?? 0;
 
         $clusterUnggulMax = collect($clusterData['Unggul']['members'] ?? [])->max('skor_komposit') ?? 0;
         $clusterPotensialMax = collect($clusterData['Potensial']['members'] ?? [])->max('skor_komposit') ?? 0;
         $clusterBerkembangMax = collect($clusterData['Berkembang']['members'] ?? [])->max('skor_komposit') ?? 0;
-        $clusterPrioritasMax = collect($clusterData['Prioritas']['members'] ?? [])->max('skor_komposit') ?? 0;
 
         $centroidUnggulIks = $clusterData['Unggul']['centroid']['iks'] ?? 0;
         $centroidUnggulIke = $clusterData['Unggul']['centroid']['ike'] ?? 0;
@@ -195,24 +182,18 @@ class AnalisisController extends Controller
         $centroidBerkembangIdm = $clusterData['Berkembang']['centroid']['idm'] ?? 0;
         $centroidBerkembangJarak = $this->hitungJarak($centroidBerkembangIks, $centroidBerkembangIke, $centroidBerkembangIkl, $centroidBerkembangIdm);
 
-        $centroidPrioritasIks = $clusterData['Prioritas']['centroid']['iks'] ?? 0;
-        $centroidPrioritasIke = $clusterData['Prioritas']['centroid']['ike'] ?? 0;
-        $centroidPrioritasIkl = $clusterData['Prioritas']['centroid']['ikl'] ?? 0;
-        $centroidPrioritasIdm = $clusterData['Prioritas']['centroid']['idm'] ?? 0;
-        $centroidPrioritasJarak = $this->hitungJarak($centroidPrioritasIks, $centroidPrioritasIke, $centroidPrioritasIkl, $centroidPrioritasIdm);
         
         return view('dashboard.analisis', compact(
             'totalDesa', 'sudahInput', 'belumInput', 'persentaseInput', 'mandiri', 'maju', 'berkembang', 'tertinggal',
             'tahunAnalisis', 'tahunList', 'trenTahunan', 'prediksi', 'analysisRoute', 'pageTitle',
-            'clusterUnggul', 'clusterPotensial', 'clusterBerkembang', 'clusterPrioritas',
-            'clusterUnggulRata', 'clusterPotensialRata', 'clusterBerkembangRata', 'clusterPrioritasRata',
-            'clusterUnggulMin', 'clusterPotensialMin', 'clusterBerkembangMin', 'clusterPrioritasMin',
-            'clusterUnggulMax', 'clusterPotensialMax', 'clusterBerkembangMax', 'clusterPrioritasMax',
+            'clusterUnggul', 'clusterPotensial', 'clusterBerkembang',
+            'clusterUnggulRata', 'clusterPotensialRata', 'clusterBerkembangRata',
+            'clusterUnggulMin', 'clusterPotensialMin', 'clusterBerkembangMin',
+            'clusterUnggulMax', 'clusterPotensialMax', 'clusterBerkembangMax',
             'clusterResults',
             'centroidUnggulIks', 'centroidUnggulIke', 'centroidUnggulIkl', 'centroidUnggulIdm', 'centroidUnggulJarak',
             'centroidPotensialIks', 'centroidPotensialIke', 'centroidPotensialIkl', 'centroidPotensialIdm', 'centroidPotensialJarak',
             'centroidBerkembangIks', 'centroidBerkembangIke', 'centroidBerkembangIkl', 'centroidBerkembangIdm', 'centroidBerkembangJarak',
-            'centroidPrioritasIks', 'centroidPrioritasIke', 'centroidPrioritasIkl', 'centroidPrioritasIdm', 'centroidPrioritasJarak'
         ));
     }
 

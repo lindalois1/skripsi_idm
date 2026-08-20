@@ -193,8 +193,8 @@
         </button>
     </form>
     
-    <!-- 4 Kartu Klaster -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
+    <!-- 3 Kartu Klaster -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
         <div class="cluster-card cluster-unggul">
             <div class="cluster-icon"><i class="fas fa-crown"></i></div>
             <div class="cluster-name">Klaster 1 — Unggul</div>
@@ -215,13 +215,6 @@
             <div class="cluster-count">{{ $clusterBerkembang }} Desa</div>
             <div class="cluster-desc">Skor IDM 0.6 - 0.7<br>Status BERKEMBANG</div>
             <div class="cluster-rekom">🌱 Perkuat program</div>
-        </div>
-        <div class="cluster-card cluster-prioritas">
-            <div class="cluster-icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <div class="cluster-name">Klaster 4 — Prioritas</div>
-            <div class="cluster-count">{{ $clusterPrioritas }} Desa</div>
-            <div class="cluster-desc">Skor IDM < 0.6<br>Status TERTINGGAL</div>
-            <div class="cluster-rekom">⚠️ Intervensi khusus</div>
         </div>
     </div>
 
@@ -310,14 +303,6 @@
                     <td>{{ number_format($clusterBerkembangMax, 3) }}</td>
                     <td>Perkuat program pemberdayaan ekonomi dan sosial masyarakat</td>
                 </tr>
-                <tr>
-                    <td><span class="badge badge-prioritas">⚠️ Prioritas</span></td>
-                    <td><strong>{{ $clusterPrioritas }}</strong></td>
-                    <td>{{ number_format($clusterPrioritasRata, 3) }}</td>
-                    <td>{{ number_format($clusterPrioritasMin, 3) }}</td>
-                    <td>{{ number_format($clusterPrioritasMax, 3) }}</td>
-                    <td>Intervensi khusus percepatan pembangunan, alokasi anggaran prioritas</td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -368,14 +353,6 @@
                     <td>{{ number_format($centroidBerkembangIkl, 3) }}</td>
                     <td>{{ number_format($centroidBerkembangIdm, 3) }}</td>
                     <td>{{ number_format($centroidBerkembangJarak, 3) }}</td>
-                </tr>
-                <tr>
-                    <td><span class="badge badge-prioritas">⚠️ Prioritas</span></td>
-                    <td>{{ number_format($centroidPrioritasIks, 3) }}</td>
-                    <td>{{ number_format($centroidPrioritasIke, 3) }}</td>
-                    <td>{{ number_format($centroidPrioritasIkl, 3) }}</td>
-                    <td>{{ number_format($centroidPrioritasIdm, 3) }}</td>
-                    <td>{{ number_format($centroidPrioritasJarak, 3) }}</td>
                 </tr>
             </tbody>
         </table>

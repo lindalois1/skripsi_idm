@@ -37,10 +37,10 @@ class ClusteringController extends Controller
             ];
         })->all();
 
-        // Run clustering service with 4 clusters
-        $clusters = $clusteringService->cluster($records, 4);
+        // Run clustering service with 3 clusters
+        $clusters = $clusteringService->cluster($records, 3);
 
-        $clusterLabels = ['Unggul', 'Potensial', 'Berkembang', 'Prioritas'];
+        $clusterLabels = ['Unggul', 'Potensial', 'Berkembang'];
 
         foreach ($clusters as $index => $cluster) {
             $label = $clusterLabels[$index] ?? 'Klaster ' . ($index + 1);

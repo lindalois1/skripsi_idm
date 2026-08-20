@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class KMeansClusteringTest extends TestCase
 {
-    public function test_kmeans_mengelompokkan_data_ke_empat_klaster_berdasarkan_skor(): void
+    public function test_kmeans_mengelompokkan_data_ke_tiga_klaster_berdasarkan_skor(): void
     {
         $service = new KMeansClusteringService();
 
@@ -26,9 +26,9 @@ class KMeansClusteringTest extends TestCase
             ['id' => 12, 'skor_iks' => 0.17, 'skor_ike' => 0.22, 'skor_ikl' => 0.18, 'skor_komposit' => 0.16],
         ];
 
-        $clusters = $service->cluster($records, 4);
+        $clusters = $service->cluster($records, 3);
 
-        $this->assertCount(4, $clusters);
+        $this->assertCount(3, $clusters);
         $this->assertTrue(collect($clusters)->every(fn ($cluster) => count($cluster['members']) >= 1));
 
         $centroidIdm = collect($clusters)->map(fn ($cluster) => $cluster['centroid']['idm'])->values();
